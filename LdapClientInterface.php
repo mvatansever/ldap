@@ -34,7 +34,7 @@ interface LdapClientInterface
     public function bind($dn = null, $password = null);
 
     /*
-     * Find a username into ldap connection.
+     * Find any entry into ldap connection.
      *
      * @param string $dn
      * @param string $query
