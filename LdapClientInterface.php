@@ -56,6 +56,15 @@ interface LdapClientInterface
     public function add($dn, array $entry);
 
     /**
+     * Remove an exists entry from LDAP
+     *
+     * @param string   $dn
+     * @return bool
+     * @throws LdapException
+     */
+    public function delete($dn);
+
+    /**
      * Escape a string for use in an LDAP filter or DN.
      *
      * @param string $subject

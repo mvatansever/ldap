@@ -123,6 +123,20 @@ class LdapClient implements LdapClientInterface
     /**
      * {@inheritdoc}
      */
+    public function delete($dn)
+    {
+        $delete = ldap_delete($this->connection, $dn);
+
+        if(false === $delete){
+            throw new LdapException($this->getError());
+        }
+
+        return $delete;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function escape($subject, $ignore = '', $flags = 0)
     {
         $value = ldap_escape($subject, $ignore, $flags);
