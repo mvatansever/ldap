@@ -105,6 +105,24 @@ class LdapClient implements LdapClientInterface
     /**
      * {@inheritdoc}
      */
+    public function add($dn, array $entry)
+    {
+        if(count($entry) == 0){
+            throw new LdapException("Ldap entry must have some attributes!");
+        }
+
+        $add = ldap_add($this->connection, $dn, $entry);
+
+        if(false === $add){
+            throw new LdapException($this->getError());
+        }
+
+        return $add;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function escape($subject, $ignore = '', $flags = 0)
     {
         $value = ldap_escape($subject, $ignore, $flags);
@@ -121,6 +139,14 @@ class LdapClient implements LdapClientInterface
         }
 
         return $value;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getConnection()
+    {
+        return $this->connection;
     }
 
     private function connect()
@@ -150,5 +176,15 @@ class LdapClient implements LdapClientInterface
         }
 
         $this->connection = null;
+    }
+
+    /**
+     * Get error string of current connection
+     *
+     * @return string
+     */
+    private function getError()
+    {
+        return ldap_error($this->connection);
     }
 }
