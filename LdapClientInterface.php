@@ -12,6 +12,7 @@
 namespace Symfony\Component\Ldap;
 
 use Symfony\Component\Ldap\Exception\ConnectionException;
+use Symfony\Component\Ldap\Exception\LdapException;
 
 /**
  * Ldap interface.
@@ -45,6 +46,16 @@ interface LdapClientInterface
     public function find($dn, $query, $filter = '*');
 
     /**
+     * Add an entry to LDAP
+     *
+     * @param $dn
+     * @param array $entry
+     * @return bool
+     * @throws LdapException
+     */
+    public function add($dn, array $entry);
+
+    /**
      * Escape a string for use in an LDAP filter or DN.
      *
      * @param string $subject
@@ -54,4 +65,11 @@ interface LdapClientInterface
      * @return string
      */
     public function escape($subject, $ignore = '', $flags = 0);
+
+    /**
+     * Get current connection
+     *
+     * @return null | resource
+     */
+    public function getConnection();
 }
