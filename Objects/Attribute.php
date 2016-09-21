@@ -67,7 +67,7 @@ class Attribute
      * @return bool
      * @throws AttributeException
      */
-    public function changeAttribute($dn, array $attribute)
+    public function updateAttribute($dn, array $attribute)
     {
         $this->checkAttributeCount($attribute);
 
